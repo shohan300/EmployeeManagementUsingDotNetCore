@@ -1,0 +1,30 @@
+﻿@model IEnumerable<Department>
+@{
+    ViewData["Title"] = "| Department";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<br />
+<link href="~/twitter-bootstrap/css/bootstrap.css" rel="stylesheet" />
+<h1>List of Department</h1>
+<div>
+    <p>@Html.ActionLink("Create New Department", "Create", "Department")</p>
+    <table class="table table-bordered">
+        <thead>
+            <tr style="text-align:center">
+                <th>Department Id</th>
+                <th>Department Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr style="text-align:center">
+                    <td>@item.DepartmentId</td>
+                    <td>@item.DepartmentName</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

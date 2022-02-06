@@ -1,0 +1,77 @@
+﻿@model EmployeeViewModel
+
+@{
+    ViewData["Title"] = "| Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var photoPath = "~/Images/" + (Model.ExistingPhotoPath ?? "No Image.jpg");
+}
+
+<div class="col-md-6 mx-auto">
+    <h4>Employee</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-10">
+            <form asp-action="Edit" enctype="multipart/form-data" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="EmployeeId" />
+                <input type="hidden" asp-for="ExistingPhotoPath" />
+                <div class="form-group">
+                    <label asp-for="EmployeeName" class="control-label"></label>
+                    <input asp-for="EmployeeName" class="form-control" />
+                    <span asp-validation-for="EmployeeName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="EmployeeEmail" class="control-label"></label>
+                    <input asp-for="EmployeeEmail" class="form-control" />
+                    <span asp-validation-for="EmployeeEmail" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="EmployeePhone" class="control-label"></label>
+                    <input asp-for="EmployeePhone" class="form-control" />
+                    <span asp-validation-for="EmployeePhone" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Address" class="control-label"></label>
+                    <input asp-for="Address" class="form-control" />
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DepartmentName" class="control-label"></label>
+                    <select asp-for="DepartmentId" class="form-control" asp-items="@(new SelectList(ViewBag.Department, "DepartmentId", "DepartmentName"))">
+                        <option value="">Select Department</option>
+                    </select>
+                    <span asp-validation-for="DepartmentId" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <img src="@photoPath" class="change_edit" width="90" height="90" asp-append-version="true" />
+                    <input asp-for="Photo" class="form-control changeImage" type="file" />
+
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+</div>
+
+
+<script>
+    $(function () {
+        $('.changeImage').change(function () {
+            var input = this;
+            if (input.files) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('.change_edit').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        })
+    })
+</script>

@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Employee>
+@{
+    ViewData["Title"] = "| Employee";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<br />
+<link href="~/twitter-bootstrap/css/bootstrap.css" rel="stylesheet" />
+<h4>List of Employee</h4>
+<div>
+    <p>@Html.ActionLink("Create New Employee", "Create", "Employee")</p>
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+            <tr style="text-align:center">
+                <th>Operations</th>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Address</th>
+                <th>Department</th>
+                <th>Photo</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr style="text-align:center">
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.EmployeeId }, new { @class = "btn btn-warning" })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.EmployeeId }, new { @class = "btn btn-danger" })
+                    @Html.ActionLink("Details", "_Details", new { id = item.EmployeeId }, new { @class = "btn btn-secondary" })
+                </td>
+                <td>@item.EmployeeId</td>
+                <td>@item.EmployeeName</td>
+                <td>@item.EmployeeEmail</td>
+                <td>@item.Address</td>
+                <td>@item.Department.DepartmentName</td>
+                <td>
+                    <img src="~/Images/@item.PhotoPath" height="30" width="30" asp-append-version="true" />
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
